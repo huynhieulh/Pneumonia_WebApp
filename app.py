@@ -75,10 +75,10 @@ def select():
         model_selected =""
         if f=='RESNET':
             cache['model'] = modelresnet
-            model_selected = "Đã chọn ResNet"
+            model_selected = "Đã chọn Model based on ResNet"
         elif f=='VGG':
             cache['model'] = modelvgg
-            model_selected = "Đã chọn VGG16"
+            model_selected = "Đã chọn Model based on VGG"
 
         #model= load_model(MODEL_PATH)
         #model._make_predict_function()
