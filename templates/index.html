@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="row no-gutters">
+  <div class="col-9 col-sm-6 col-md-6 ">
+      <div>
+          <h4>Tổng quan</h4>
+          <p>Viêm phổi là một bệnh nhiễm trùng làm viêm các túi khí ở một hoặc cả hai phổi. Các túi khí có thể chứa đầy chất lỏng hoặc mủ (vật liệu có mủ), gây ho có đờm hoặc mủ, sốt, ớn lạnh và khó thở. Nhiều loại sinh vật, bao gồm vi khuẩn, vi rút và nấm, có thể gây viêm phổi.</p>
+          <p>Viêm phổi có thể ở mức độ nghiêm trọng từ nhẹ đến đe dọa tính mạng. Nó nghiêm trọng nhất đối với trẻ sơ sinh và trẻ nhỏ, người trên 65 tuổi và những người có vấn đề về sức khỏe hoặc hệ thống miễn dịch suy yếu.</p>
+          <img src="{{ url_for('static', filename='pneumonia.jpg') }}"></img>
+      </div>
+  </div>
+  <div class="col-1 col-md-1 border-left border-5" style="margin-left: 80px;"></div>
+  <div class="col-6 col-md-4" >
+    <h3>Dự đoán bệnh viêm phổi</h3>
+    <div class="w-75" name="models" id="models">
+        <form action="/modelSelection" method="post" enctype="multipart/form-data">
+            <select name="models" id="models"  class="custom-select">
+              <option value="VGG">Model VGG</option>
+              <option value="RESNET">Model RESNET</option>
+            </select>
+            <input type="submit" value ="Chọn Model">
+        </form>
+    </div>
+    <form id="upload-file" method="post" enctype="multipart/form-data">
+        <label for="imageUpload" class="upload-label">
+            Chọn Hình 
+        </label>
+        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+    </form>
+    <p>Ảnh có tỉ lệ trên 0.85 cho kết quả bệnh nhân mắc bệnh viêm phổi và dưới 0.85 cho kết quả bình thường</p>
+    
+    <div class="image-section" style="display:none;">
+        <div class="img-preview">
+            <div id="imagePreview">
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
+        </div>
+    </div>
+
+    <div class="loader" style="display:none;"></div>
+
+    <h3 id="result">
+        <span> </span>
+    </h3>
+  </div>
+</div>
+{% endblock %}
