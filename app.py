@@ -66,20 +66,25 @@ def handle_500(e):
     return render_template('index.html'), 500
 
 cache={}
-@app.route('/modelSelection',methods=['POST'])
+@app.route('/modelSelection',methods=['POST', 'GET'])
 def select():
-    f=request.form['models'];
-    print(f)
-    # MODEL_PATH ='models/CNN.h5'
-    if f=='RESNET':
-        cache['model'] = modelresnet
-    elif f=='VGG':
-        cache['model'] = modelvgg
+    if request.method == 'POST':
+        f=request.form['models']
+        print(f)
+        # MODEL_PATH ='models/CNN.h5'
+        model_selected =""
+        if f=='RESNET':
+            cache['model'] = modelresnet
+            model_selected = "Đã chọn ResNet"
+        elif f=='VGG':
+            cache['model'] = modelvgg
+            model_selected = "Đã chọn VGG16"
 
-    #model= load_model(MODEL_PATH)
-    #model._make_predict_function()
-    #cache['model'] = model
-    return redirect('/')
+        #model= load_model(MODEL_PATH)
+        #model._make_predict_function()
+        #cache['model'] = model
+        #return redirect('/')
+        return render_template('index.html', message=model_selected)
 
 @app.route('/predict', methods=['GET', 'POST'])
 def upload():
