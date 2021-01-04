@@ -19,13 +19,13 @@ from gevent.pywsgi import WSGIServer
 # Define a flask app
 app = Flask(__name__)
 
-# Model saved with Keras model.save()
-#MODEL_PATH = './model.h5'
+#Load models
 modelvgg =load_model('Models/VGG.h5')
 modelvgg._make_predict_function() 
-# Load your trained model
+
 modelresnet =load_model('Models/RESNET.h5')
-modelresnet._make_predict_function()          # Necessary
+modelresnet._make_predict_function()
+
 # print('Model loaded. Start serving...')
 
 # You can also use pretrained model from Keras
