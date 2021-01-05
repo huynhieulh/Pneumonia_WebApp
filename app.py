@@ -5,7 +5,7 @@ import os
 import glob
 import re
 import numpy as np
-
+import cv2
 # Keras
 from keras.applications.imagenet_utils import preprocess_input, decode_predictions
 from keras.models import load_model
@@ -37,18 +37,12 @@ print('Go to http://127.0.0.1:5000/')
 
 
 def model_predict(img_path, model):
-    img = image.load_img(img_path, target_size=(256, 256))
+    IMGS=256
+    img = cv2.imread(img_path)
+    img = cv2.resize(img, (IMGS, IMGS))
+    img = img.reshape(-1, IMGS, IMGS, 3)
 
-    # Preprocessing the image
-    x = image.img_to_array(img)
-    # x = np.true_divide(x, 255)
-    x = np.expand_dims(x, axis=0)
-
-    # Be careful how your trained model deals with the input
-    # otherwise, it won't make correct prediction!
-    x = preprocess_input(x, mode='caffe')
-
-    preds = model.predict(x)
+    preds = model.predict(img)
     return preds
 
 
@@ -106,7 +100,7 @@ def upload():
         # pred_class = preds.argmax(axis=-1)            # Simple argmax
         #pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
         result=""
-        if preds[0][0] > 0.85:
+        if preds[0][0] > 0.5:
         	result = "PNEUMONIA"
         else:
         	result = "NORMAL"
