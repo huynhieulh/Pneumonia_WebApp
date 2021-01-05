@@ -90,8 +90,6 @@ model_14.compile(optimizer= keras.optimizers.Adam(lr=0.0001), loss='binary_cross
 
 model_14.fit(x_train, y_train, epochs = 10, batch_size = 32, validation_data=(x_test, y_test) )
 
-plot_history(history)
-
 print(model_14.evaluate(x_test, y_test))
 
 y_pred = model_14.predict(x_test)
